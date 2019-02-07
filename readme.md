@@ -182,9 +182,6 @@ ETC..
 You just take methods names and params from from [official api](https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md) and use it with the provided interface.
 
 
-Every response will contain json as described in official docs, or an Exception will be thrown.
-
-
 You can get more examples in Russian [here](https://bablofil.ru/binance-api/)
 
 
