@@ -33,14 +33,15 @@ class Binance():
             'account':          {'url': 'api/v3/account', 'method': 'GET', 'private': True},
             'myTrades':         {'url': 'api/v3/myTrades', 'method': 'GET', 'private': True},
             # wapi
-            'depositAddress':   {'url': '/wapi/v3/depositAddress.html', 'method':'GET', 'private':True},
-            'withdraw':   {'url': '/wapi/v3/withdraw.html', 'method':'POST', 'private':True},
-            'depositHistory': {'url': '/wapi/v3/depositHistory.html', 'method':'GET', 'private':True},
-            'withdrawHistory': {'url': '/wapi/v3/withdrawHistory.html', 'method':'GET', 'private':True},
-            'withdrawFee': {'url': '/wapi/v3/withdrawFee.html', 'method':'GET', 'private':True},
-            'accountStatus': {'url': '/wapi/v3/accountStatus.html', 'method':'GET', 'private':True},
-            'systemStatus': {'url': '/wapi/v3/systemStatus.html', 'method':'GET', 'private':True},
-    }
+            'depositAddress':   {'url': 'wapi/v3/depositAddress.html', 'method':'GET', 'private':True},
+            'withdraw':   {'url': 'wapi/v3/withdraw.html', 'method':'POST', 'private':True},
+            'depositHistory': {'url': 'wapi/v3/depositHistory.html', 'method':'GET', 'private':True},
+            'withdrawHistory': {'url': 'wapi/v3/withdrawHistory.html', 'method':'GET', 'private':True},
+            'assetDetail': {'url': 'wapi/v3/assetDetail.html', 'method':'GET', 'private':True},
+            'tradeFee': {'url': 'wapi/v3/tradeFee.html', 'method':'GET', 'private':True},
+            'accountStatus': {'url': 'wapi/v3/accountStatus.html', 'method':'GET', 'private':True},
+            'systemStatus': {'url': 'wapi/v3/systemStatus.html', 'method':'GET', 'private':True},
+   }
     
     def __init__(self, API_KEY, API_SECRET):
         self.API_KEY = API_KEY
