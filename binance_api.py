@@ -41,6 +41,27 @@ class Binance():
             'tradeFee': {'url': 'wapi/v3/tradeFee.html', 'method':'GET', 'private':True},
             'accountStatus': {'url': 'wapi/v3/accountStatus.html', 'method':'GET', 'private':True},
             'systemStatus': {'url': 'wapi/v3/systemStatus.html', 'method':'GET', 'private':True},
+            'assetDust': {'url': 'sapi/v1/asset/dust', 'method':'POST', 'private':True},
+            'dustLog': {'url': 'wapi/v3/userAssetDribbletLog.html', 'method':'GET', 'private':True},
+            'assetAssetDividend': {'url': 'sapi/v1/asset/assetDividend', 'method':'GET', 'private':True},
+            #sapi
+            'marginTransfer': {'url': 'sapi/v1/margin/transfer', 'method': 'POST', 'private':True},
+            'marginLoan': {'url': 'sapi/v1/margin/loan', 'method': 'POST', 'private':True},
+            'marginRepay': {'url': 'sapi/v1/margin/repay', 'method': 'POST', 'private':True},
+            'marginCreateOrder': {'url': 'sapi/v1/margin/order', 'method': 'POST', 'private':True},
+            'marginCancelOrder': {'url': 'sapi/v1/margin/order', 'method': 'DELETE', 'private':True},
+            'marginOrderInfo': {'url': 'sapi/v1/margin/order', 'method': 'GET', 'private':True},
+            'marginAccount': {'url': 'sapi/v1/margin/account', 'method': 'POST', 'private':True},
+            'marginOpenOrders': {'url': 'sapi/v1/margin/openOrders', 'method': 'GET', 'private':True},
+            'marginAllOrders': {'url': 'sapi/v1/margin/allOrders', 'method': 'GET', 'private':True},
+            'marginAsset': {'url': 'sapi/v1/margin/asset', 'method': 'POST', 'private':True},
+            'marginPair': {'url': 'sapi/v1/margin/pair', 'method': 'POST', 'private':True},
+            'marginPriceIndex': {'url': 'sapi/v1/margin/priceIndex', 'method': 'POST', 'private':True},
+            'marginMyTrades': {'url': 'sapi/v1/margin/myTrades', 'method': 'GET', 'private':True},
+            'marginMaxBorrowable': {'url': 'sapi/v1/margin/maxBorrowable', 'method': 'GET', 'private':True},
+            'marginmaxTransferable': {'url': 'sapi/v1/margin/maxTransferable', 'method': 'GET', 'private':True},
+            'marginmaxTransferable': {'url': 'sapi/v1/margin/maxTransferable', 'method': 'GET', 'private':True},
+            
    }
     
     def __init__(self, API_KEY, API_SECRET):
@@ -78,9 +99,10 @@ class Binance():
             payload_str = payload_str.decode("utf-8") + "&signature="+str(sign) 
             headers = {"X-MBX-APIKEY": self.API_KEY}
 
-        if self.methods[command]['method'] == 'GET':
+        if self.methods[command]['method'] == 'GET' or self.methods[command]['url'].startswith('sapi'):
             api_url += '?' + payload_str
 
+        print(api_url, payload_str, self.methods[command])
         response = requests.request(method=self.methods[command]['method'], url=api_url, data="" if self.methods[command]['method'] == 'GET' else payload_str, headers=headers)
 
             
