@@ -60,7 +60,10 @@ class Binance():
             'marginMyTrades': {'url': 'sapi/v1/margin/myTrades', 'method': 'GET', 'private':True},
             'marginMaxBorrowable': {'url': 'sapi/v1/margin/maxBorrowable', 'method': 'GET', 'private':True},
             'marginmaxTransferable': {'url': 'sapi/v1/margin/maxTransferable', 'method': 'GET', 'private':True},
-            
+            'marginLoan': {'url': 'sapi/v1/margin/loan', 'method': 'POST', 'private': True},
+            'marginLoanGet': {'url': 'sapi/v1/margin/loan', 'method': 'GET', 'private': True},
+            'marginRepay': {'url': 'sapi/v1/margin/repay', 'method': 'POST', 'private': True},
+            'marginRepayGet': {'url': 'sapi/v1/margin/repay', 'method': 'GET', 'private': True},
    }
     
     def __init__(self, API_KEY, API_SECRET):
