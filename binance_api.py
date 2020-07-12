@@ -62,6 +62,15 @@ class Binance():
             'marginMyTrades': {'url': 'sapi/v1/margin/myTrades', 'method': 'GET', 'private':True},
             'marginMaxBorrowable': {'url': 'sapi/v1/margin/maxBorrowable', 'method': 'GET', 'private':True},
             'marginmaxTransferable': {'url': 'sapi/v1/margin/maxTransferable', 'method': 'GET', 'private':True},
+            #futures
+            'futuresExchangeInfo': {'url': 'fapi/v1/exchangeInfo', 'method': 'GET', 'private': False, 'futures': True},
+            'futuresKlines': {'url': 'fapi/v1/klines', 'method': 'GET', 'private': False, 'futures': True},
+            'futuresCreateOrder':      {'url': 'fapi/v1/order', 'method': 'POST', 'private': True, 'futures': True},
+            'futuresAccount':      {'url': 'fapi/v1/account', 'method': 'POST', 'private': True, 'futures': True},
+            'futuresBalance':      {'url': 'fapi/v1/balance', 'method': 'GET', 'private': True, 'futures': True},
+            'futuresSymbolPriceTicker': {'url': 'fapi/v1/ticker/price', 'method': 'GET', 'private': True, 'futures': True},
+            'futuresOrderInfo': {'url': 'fapi/v1/order', 'method': 'GET', 'private': True, 'futures': True},
+            'futuresCancelOrder':      {'url': 'fapi/v1/order', 'method': 'DELETE', 'private': True, 'futures': True},
    }
     
     def __init__(self, API_KEY, API_SECRET):
@@ -81,7 +90,11 @@ class Binance():
     def call_api(self, **kwargs):
 
         command = kwargs.pop('command')
-        api_url = 'https://api.binance.com/' + self.methods[command]['url']
+
+        base_url ='https://api.binance.com/' 
+        if self.methods[command].get('futures'):
+            base_url = 'https://fapi.binance.com/' 
+        api_url = base_url  + self.methods[command]['url']
 
         payload = kwargs
         headers = {}
@@ -97,15 +110,18 @@ class Binance():
             ).hexdigest()
 
             payload_str = payload_str.decode("utf-8") + "&signature="+str(sign) 
-            headers = {"X-MBX-APIKEY": self.API_KEY}
+            headers = {"X-MBX-APIKEY": self.API_KEY, "Content-Type":"application/x-www-form-urlencoded"}
 
         if self.methods[command]['method'] == 'GET' or self.methods[command]['url'].startswith('sapi'):
             api_url += '?' + payload_str
 
-        print(api_url, payload_str, self.methods[command])
+        print(self.methods[command]['method'], api_url, payload_str)
         response = requests.request(method=self.methods[command]['method'], url=api_url, data="" if self.methods[command]['method'] == 'GET' else payload_str, headers=headers)
-
+        #print("DATA", response.request.body)
+        #print("HEADERS", response.request.headers)
             
         if 'code' in response.text:
-            print(response.text)
+            raise Exception(response.text)
+
         return response.json()
+        
