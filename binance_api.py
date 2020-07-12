@@ -115,10 +115,7 @@ class Binance():
         if self.methods[command]['method'] == 'GET' or self.methods[command]['url'].startswith('sapi'):
             api_url += '?' + payload_str
 
-        print(self.methods[command]['method'], api_url, payload_str)
         response = requests.request(method=self.methods[command]['method'], url=api_url, data="" if self.methods[command]['method'] == 'GET' else payload_str, headers=headers)
-        #print("DATA", response.request.body)
-        #print("HEADERS", response.request.headers)
             
         if 'code' in response.text:
             raise Exception(response.text)
